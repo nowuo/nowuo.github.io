@@ -151,7 +151,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2023-10-20 16:35:23
+          2023-10-20 16:40:47
         </span>
         
               <span class="post-tags">
@@ -173,7 +173,7 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="tcpdump-的使用"><a href="#tcpdump-的使用" class="headerlink" title="tcpdump 的使用"></a><code>tcpdump</code> 的使用</h1><h2 id="认识TCP头部"><a href="#认识TCP头部" class="headerlink" title="认识TCP头部"></a>认识<code>TCP头部</code></h2><p><img src="C:\Users\VM110\Desktop\渗透测试学习\OSCP基础渗透测试学习\笔记\tcp_header.png" alt="TCP Header"></p>
+        <h1 id="tcpdump-的使用"><a href="#tcpdump-的使用" class="headerlink" title="tcpdump 的使用"></a><code>tcpdump</code> 的使用</h1><h2 id="认识TCP头部"><a href="#认识TCP头部" class="headerlink" title="认识TCP头部"></a>认识<code>TCP头部</code></h2><p><img src="/images/tcp_header.png" alt="TCP Header"></p>
 <h2 id="tcpdump的基本使用"><a href="#tcpdump的基本使用" class="headerlink" title="tcpdump的基本使用"></a><code>tcpdump</code>的基本使用</h2><h3 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">% sudo tcpdump</span><br><span class="line"></span><br><span class="line">tcpdump: verbose output suppressed, use -v[v]... <span class="keyword">for</span> full protocol decode</span><br><span class="line">listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes</span><br><span class="line">21:19:16.956496 IP 172.30.224.1.mdns &gt; mdns.mcast.net.mdns: 0 A (QM)? cf60825f-49a2-46d0-8ec5-e32907459979.local. (60)</span><br><span class="line">21:19:16.956611 IP6 VM110.mdns &gt; ff02::fb.mdns: 0 A (QM)? cf60825f-49a2-46d0-8ec5-e32907459979.local. (60)</span><br><span class="line">21:19:17.051187 IP 172.30.227.118.41506 &gt; 172.30.224.1.domain: 29901+ PTR? 251.0.0.224.in-addr.arpa. (42)</span><br><span class="line">21:19:17.052100 IP 172.30.224.1.domain &gt; 172.30.227.118.41506: 29901- 1/0/0 PTR mdns.mcast.net. (94)</span><br><span class="line">21:19:17.052446 IP 172.30.227.118.46960 &gt; 172.30.224.1.domain: 20754+ PTR? 1.224.30.172.in-addr.arpa. (43)</span><br><span class="line">21:19:17.055238 IP 172.30.224.1.domain &gt; 172.30.227.118.46960: 20754- 1/0/0 PTR 172.30.224.1. (94)</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -345,7 +345,7 @@
 
 <h4 id="基于包大小过滤"><a href="#基于包大小过滤" class="headerlink" title="基于包大小过滤"></a>基于<code>包大小</code>过滤</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 捕获小于32bytes的数据包</span></span><br><span class="line">sudo tcpdump less 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 捕获大于32bytes的数据包</span></span><br><span class="line">sudo tcpdump greater 22</span><br></pre></td></tr></table></figure>
 
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="C:\Users\VM110\Desktop\渗透测试学习\OSCP基础渗透测试学习\笔记\tcpdump.png" alt="tcpdump"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="/images/tcpdump.png" alt="tcpdump"></p>
 
       </div>
       
@@ -361,7 +361,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2023-10-20 16:35:23
+              2023-10-20 16:40:47
             </span>
             
                   <span class="post-tags">
