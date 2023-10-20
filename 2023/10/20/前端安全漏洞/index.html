@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh_CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="author" content="VM110" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      前端安全漏洞 
+      
+      
+      |
+    
+     VM110
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/logo.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">VM110</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">前端安全漏洞</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:31:59
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/WEB%E5%AE%89%E5%85%A8/" title="WEB安全">
+                    #WEB安全
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="返回包状态码"><a href="#返回包状态码" class="headerlink" title="返回包状态码"></a>返回包状态码</h3><ul>
+<li>200 ：OK-确认</li>
+<li>302：Found-跳转</li>
+<li>400：Bad Request-错误的请求</li>
+<li><strong><em>401：Unauthorized-当前用户未授权</em></strong></li>
+<li>403：Forbidden-禁止访问</li>
+<li>404：Not Found-未找到</li>
+<li><strong><em>405：Method Not Allowed -请求方式不允许</em></strong></li>
+<li><strong><em>415：Unsupported Media Type-不支持的 Content-type</em></strong></li>
+<li><strong><em>500：Internal Server Error-错误的网关</em></strong></li>
+<li>504：Gateway Timeout- 请求超时</li>
+</ul>
+<hr>
+<h3 id="常规-前端安全漏洞"><a href="#常规-前端安全漏洞" class="headerlink" title="常规 - 前端安全漏洞"></a>常规 - 前端安全漏洞</h3><blockquote>
+<p>XSS<br>CSRF<br>注释信息<br>前端校验权限</p>
+</blockquote>
+<h4 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h4><ul>
+<li><p>反射性 XSS</p>
+<ul>
+<li>需要讲触发点发送给目标用户- <u>低危</u><br>请求方式：GET、POST 型<br>常用参数：url、keyword、各类请求参数</li>
+</ul>
+</li>
+<li><p>存储型 XSS</p>
+<ul>
+<li>文件上传导致的存储型 XSS（上传至存储桶）- <u>低危</u></li>
+<li>文件上传导致的存储型 XSS - <u>中危</u><ul>
+<li>文件上传的文件名</li>
+<li>发票抬头名称、税号，开户名称</li>
+<li>邀请用户的用户名、个人信息</li>
+<li>收货地址</li>
+<li>地图的起点、终点</li>
+</ul>
+</li>
+<li>需要将触发页面发送给目标用户的 - <u>中高危</u></li>
+<li>受众较广的发帖功能、发送信息功能 - <u>中高危</u></li>
+<li>能够威胁到管理后台 - <u>高危</u></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h4><ul>
+<li>GET 类型<ul>
+<li>Web 应用使用 GET 请求进行关键的数据操作</li>
+</ul>
+</li>
+<li>POST 类型<ul>
+<li>利用方法：使用一个自动提交的表单</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=http://xxx.com/edit.php method=POST&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;user&quot; value=&quot;11&quot;&gt;</span><br><span class="line">&lt;/form&gt;&lt;script&gt; document.forms[0].submit();&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<pre><code>访问该页面后，表单将自动提交，相当于模拟用户完成了一次POST操作
+</code></pre>
+<ul>
+<li>CSRF 高危行为<ul>
+<li>修改用户密码</li>
+<li>修改个人信息</li>
+<li>进行资金操作</li>
+<li>与 Self XSS 组合利用</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>案例 1</em></p>
+</blockquote>
+<p>用户修改安全邮箱时，抓取数据包，<br>原有的 userEmail 不会验证，可直接修改为输入后的<br>导致绕过验证并修改了安全邮箱</p>
+<p><strong><em>总结</em></strong></p>
+<ul>
+<li>在特定的环境下，CSRF 能获得高危</li>
+<li>尝试寻找高风险的操作</li>
+<li>应用的用户基数决定了 CSRF 的上限</li>
+</ul>
+<blockquote>
+<p><em>案例 2</em> - CSRF 与 Self XSS 组合利用</p>
+</blockquote>
+<p>构造 HTML，将 XSS 攻击代码嵌入 CSRF 的 Payload 中</p>
+<hr>
+<h4 id="前端注释信息"><a href="#前端注释信息" class="headerlink" title="前端注释信息"></a>前端注释信息</h4><ul>
+<li><p>敏感数据</p>
+<ul>
+<li>敏感目录或文件地址</li>
+<li>内网接口信息泄露</li>
+<li>网站的基础架构</li>
+<li>用户相关数据，比如测试用的账户密码</li>
+</ul>
+</li>
+<li><p>HTML 注释<br>常用格式为：&lt;!-注释内容-&gt;</p>
+</li>
+<li><p>JavaScript 注释</p>
+<ul>
+<li>单行注释：<code>//注释内容</code></li>
+<li>多行注释：<code>/注释内容/</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>案例 1</em></p>
+</blockquote>
+<ul>
+<li>通过 JavaScript 发现账户密码</li>
+<li>调用接口利用密码 ，获取系统 token</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /sso/sso/v1.0/loginByEmplcode HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>请求体</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;password&quot;:&quot;1qaz@wsx#&quot;</span><br><span class="line">&quot;username&quot;:&quot;80003&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将获取的 token 导入浏览器并访问后台</li>
+</ul>
+<h4 id="前端权限绕过"><a href="#前端权限绕过" class="headerlink" title="前端权限绕过"></a>前端权限绕过</h4><ul>
+<li>通过修改 HTTP 响应包中的参数，从而绕过验证，如：<ul>
+<li>验证码是否正确</li>
+<li>用户请求是否通过校验</li>
+<li>控制用户权限</li>
+<li>控制当前用户的身份</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>案例</em></p>
+</blockquote>
+<ul>
+<li>小程序授权登录，之后拦截请求包</li>
+<li>修改参数 UID</li>
+</ul>
+<hr>
+<h3 id="前端框架安全"><a href="#前端框架安全" class="headerlink" title="前端框架安全"></a>前端框架安全</h3><blockquote>
+<p>高风险 Webpack<br>中风险 Source Map<br>低风险 只有 JavaScript</p>
+</blockquote>
+<h4 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h4><ul>
+<li><p>什么是 Webpack<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/30981251"><strong>Webpack 介绍</strong></a></p>
+</li>
+<li><p>Webpack 分析</p>
+<ul>
+<li>如果使用了 Webpack，并使用默认设置，未隐藏 Webpack<br>即可使用浏览器开发工具，调出 Webpack 分析<br>多出现于&#x3D;&#x3D;&#x2F;#&#x2F;&#x3D;&#x3D;前端 H5+后端接口的组合中<ul>
+<li>webpack:&#x2F;&#x2F;&#x2F;(webpack)&#x2F;buidlin - 全局文件、打包配置文件</li>
+<li>webpack:&#x2F;&#x2F;&#x2F;node_modules - 打包的各类前端代码依赖库</li>
+<li>webpack:&#x2F;&#x2F;&#x2F;src&#x2F;* - 核心打包后的代码<ul>
+<li><strong><em>API</em></strong> - 各功能模块的接口</li>
+<li>Assets - 静态资源文件</li>
+<li>Common - 公共资源文件</li>
+<li><strong><em>Entity</em></strong> - 实例<ul>
+<li>危险点：各类配置文件、各类配置秘钥</li>
+</ul>
+</li>
+<li><strong><em>Router</em></strong> - 功能路由<ul>
+<li>Path - 功能路径</li>
+<li>Name - 功能描述<br>示例：<a target="_blank" rel="noopener" href="https://xxx.com/#/login">https://xxx.com/#/login</a></li>
+</ul>
+</li>
+<li><strong><em>Store</em></strong> - 软件开发工具包</li>
+<li><strong><em>Utils</em></strong> - 引用、依赖</li>
+<li>Views - 前端视图文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li>存在 Webpack，在未登录的情况下，<br>依旧可以获得完整的配置信息、接口信息</li>
+<li>存在接口信息、参数、配置文件、注释信息、第三方组件、测试账户<br>等信息泄露</li>
+<li>可利用泄露的前端代码进行 Web 应用的还原</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="Source-Map"><a href="#Source-Map" class="headerlink" title="Source Map"></a>Source Map</h4><ul>
+<li>未发现 Webpack 之后，也尝试寻找 Source Map<br>其特征：app.xxx.js、vender.xxx.js、chunk.xxx.js</li>
+</ul>
+<blockquote>
+<p><em>案例 1</em></p>
+</blockquote>
+<ul>
+<li><p>在某 JavaScript 文件的注释中发现了 Source Map 地址</p>
+</li>
+<li><p>对 JavaScript 文件添加.map 后缀后访问</p>
+</li>
+<li><p>内容近乎等同于 Webpack</p>
+</li>
+<li><p>相关工具 ：**<em>restore-source-map</em>**</p>
+<ul>
+<li>安装方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/laysent/restore-source-map</span><br><span class="line">cd restore-source-map</span><br><span class="line">sudo npm install -g</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><ul>
+<li>在 Webpack、Source Map 均无的情况下，也可以查看 JavaScript 文件</li>
+</ul>
+<blockquote>
+<p><em>隐藏在 JS 中的各种环境信息</em></p>
+</blockquote>
+<ul>
+<li>Username、password - 测试用户密码</li>
+<li>baseURL - 相关链接信息</li>
+<li>Api - 接口服务器信息</li>
+<li>Config - 配置信息</li>
+<li>Env - 环境信息</li>
+</ul>
+<blockquote>
+<p><em>开发平台密钥 id&#x2F;secret</em></p>
+</blockquote>
+<ul>
+<li>app_id 是应用的唯一识别，可以在开发者后台的凭证与基础信息中查看</li>
+<li>app_secret 是应用的密钥，可以在开发者后台的凭证与基础信息中查看或重置<ul>
+<li>案例：通过前端信息泄露，获取微信公众号的密钥对</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>云存储的密钥 ak&#x2F;sk</em></p>
+</blockquote>
+<ul>
+<li>与开发者密钥类似，一般为 accessKeyId、accessKeySecret<ul>
+<li>可使用 oss 浏览器，利用凭证登录</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>泄露 Author 署名信息</p>
+</blockquote>
+<ul>
+<li>可进行信息搜集，搜索引擎信息泄露，GitHub 信息泄露等进一步利用</li>
+</ul>
+<blockquote>
+<p>内部 IP 地址、测试 IP 地址泄露</p>
+</blockquote>
+<blockquote>
+<p>手机号码、身份证号码、银行卡号泄露</p>
+</blockquote>
+<h5 id="编辑器漏洞"><a href="#编辑器漏洞" class="headerlink" title="编辑器漏洞"></a>编辑器漏洞</h5><ul>
+<li>前端文件中出现类似于 ueditor.config.js 此类编辑器的配置文件，<br>说明 Web 应用使用了特定的编辑器，可能存在通用漏洞</li>
+<li>Ueditor 编辑器漏洞<ul>
+<li>上传文件导致存储类 XSS 漏洞：&#x2F;ueditor&#x2F;jsp&#x2F;controller.jsp?action&#x3D;uploadfile</li>
+<li>反射型 XSS 漏洞：&#x2F;ueditor&#x2F;jsp&#x2F;getContent.jsp?myEditor&#x3D;</li>
+<li>抓取图片处存在 SSRF 漏洞：&#x2F;ueditor&#x2F;jsp&#x2F;controller.jsp?action&#x3D;catchimage</li>
+<li>未授权遍历上传文件信息漏洞：&#x2F;ueditor&#x2F;jsp&#x2F;controller.jsp?action&#x3D;listfile</li>
+<li>.net 版本可通过远程服务器 getshell：<br>&#x2F;ueditor&#x2F;net&#x2F;controller.ashx?action&#x3D;catchimage</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong><em>总结</em></strong></h1><ul>
+<li>高风险 - Webpack 存在，可直接分析各种前端文件中的内容</li>
+<li>中风险 - Source Map 存在，可尝试还原 Source Map 文件</li>
+<li>低风险 - 以上均无时，查看 JavaScript 文件</li>
+</ul>
+<hr>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/Kali-Linux%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:31:59
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/WEB%E5%AE%89%E5%85%A8/" title="WEB安全">
+                        #WEB安全
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/10/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%8C%85%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">返回包状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">常规 - 前端安全漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS"><span class="toc-text">XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CSRF"><span class="toc-text">CSRF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF"><span class="toc-text">前端注释信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87"><span class="toc-text">前端权限绕过</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8"><span class="toc-text">前端框架安全</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Webpack"><span class="toc-text">Webpack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Source-Map"><span class="toc-text">Source Map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript"><span class="toc-text">JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">编辑器漏洞</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://nowuo.github.io/">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Copyright © 2023 VM110</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2F%25E5%2589%258D%25E7%25AB%25AF%25E5%25AE%2589%25E5%2585%25A8%25E6%25BC%258F%25E6%25B4%259E%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

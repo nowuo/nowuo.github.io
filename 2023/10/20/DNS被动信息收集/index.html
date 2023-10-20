@@ -11,7 +11,7 @@
   
   <title>
     
-      Archives 
+      DNS被动信息收集 
       
       
       |
@@ -102,176 +102,199 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2023</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">DNS被动信息收集</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:31:38
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                    #OSCP学习
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" title="渗透测试">
+                    #渗透测试
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="DNS-被动信息收集"><a href="#DNS-被动信息收集" class="headerlink" title="DNS 被动信息收集"></a>DNS 被动信息收集</h1><h2 id="域名查询类型介绍"><a href="#域名查询类型介绍" class="headerlink" title="域名查询类型介绍"></a>域名查询类型介绍</h2><table>
+<thead>
+<tr>
+<th>查询类型</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>IPv4 地址</td>
+</tr>
+<tr>
+<td>AAAA</td>
+<td>IPv6 地址</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>规范名称（别名记录）</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>邮箱服务器</td>
+</tr>
+<tr>
+<td>SOA</td>
+<td>授权起始</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>TXT 记录</td>
+</tr>
+</tbody></table>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="dig"><a href="#dig" class="headerlink" title="dig"></a><code>dig</code></h3><blockquote>
+<p>命令格式： <code>dig</code> <code>@DOMAIN_SERVER_IP</code> <code>DOMAIN</code> <code>TYEP</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在8.8.8.8 域名服务器中查询tryhackme.com的A类型的子域名信息</span></span><br><span class="line">dig @8.8.8.8 tryhackme.com A</span><br></pre></td></tr></table></figure>
+
+<h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a><code>nslookup</code></h3><blockquote>
+<p>命令格式： <code>nslookup</code> <code>-type=TYPE</code> <code>DOMAIN</code> <code>DOMAIN_SERVER</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在8.8.8.8 域名服务器中查询tryhackme.com的A类型的子域名信息</span></span><br><span class="line">nslookup -<span class="built_in">type</span>=A tryhackme.com 8.8.8.8</span><br></pre></td></tr></table></figure>
+
+<h3 id="whois"><a href="#whois" class="headerlink" title="whois"></a><code>whois</code></h3><blockquote>
+<p>命令格式： <code>whois</code> <code>DOMAIN/IP</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询tryhackme.com的 whois 信息</span></span><br><span class="line">whois tryhackme.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h2><h3 id="shodan"><a href="#shodan" class="headerlink" title="shodan"></a><a target="_blank" rel="noopener" href="https://www.shodan.io/">shodan</a></h3><blockquote>
+<p>用于被动收集子域名信息</p>
+</blockquote>
+<h3 id="DnsDumpster"><a href="#DnsDumpster" class="headerlink" title="DnsDumpster"></a><a target="_blank" rel="noopener" href="https://dnsdumpster.com/">DnsDumpster</a></h3><blockquote>
+<p>用于被动子收集子域名信息</p>
+</blockquote>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/Kali-Linux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:31:38
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                        #OSCP学习
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" title="渗透测试">
+                        #渗透测试
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/10/20/Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="Bash脚本学习">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/">
-            <span>Bash脚本学习</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="DNS被动信息收集">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/DNS%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
-            <span>DNS被动信息收集</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Kali-Linux基本使用">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Kali-Linux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
-            <span>Kali-Linux基本使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Nmap主机发现">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Nmap%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0/">
-            <span>Nmap主机发现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Nmap端口扫描">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Nmap%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">
-            <span>Nmap端口扫描</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SQL 注入">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/SQL%E6%B3%A8%E5%85%A5/">
-            <span>SQL 注入</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SQL Map">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/SQLMAP/">
-            <span>SQL Map</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Tmux">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Tmux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-            <span>Tmux</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Tcpdump的使用">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/tcpdump/">
-            <span>Tcpdump的使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="信息收集">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
-            <span>信息收集</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="前端安全漏洞">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E/">
-            <span>前端安全漏洞</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Kali-Linux常用网络工具">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Kali-Linux%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/">
-            <span>Kali-Linux常用网络工具</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Curl的使用">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Curl%E7%9A%84%E4%BD%BF%E7%94%A8/">
-            <span>Curl的使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="JavaScript反混淆">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/JavaScript%E5%8F%8D%E6%B7%B7%E6%B7%86/">
-            <span>JavaScript反混淆</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Kali Linux常用命令">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Kali-Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-            <span>Kali Linux常用命令</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="MYSQL基本用法">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/MYSQL%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
-            <span>MYSQL基本用法</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="逻辑漏洞(越权)">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E8%B6%8A%E6%9D%83(%E8%B6%8A%E6%9D%83)/">
-            <span>逻辑漏洞(越权)</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS-%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">DNS 被动信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E6%9F%A5%E8%AF%A2%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="toc-text">域名查询类型介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dig"><span class="toc-text">dig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nslookup"><span class="toc-text">nslookup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#whois"><span class="toc-text">whois</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%AB%99"><span class="toc-text">网站</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shodan"><span class="toc-text">shodan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DnsDumpster"><span class="toc-text">DnsDumpster</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -526,6 +549,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + DNS%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2FDNS%25E8%25A2%25AB%25E5%258A%25A8%25E4%25BF%25A1%25E6%2581%25AF%25E6%2594%25B6%25E9%259B%2586%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/DNS%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh_CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="author" content="VM110" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Tcpdump的使用 
+      
+      
+      |
+    
+     VM110
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/logo.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">VM110</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Tcpdump的使用</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:35:23
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                    #OSCP学习
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Kali-Tools/" title="Kali Tools">
+                    #Kali Tools
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="tcpdump-的使用"><a href="#tcpdump-的使用" class="headerlink" title="tcpdump 的使用"></a><code>tcpdump</code> 的使用</h1><h2 id="认识TCP头部"><a href="#认识TCP头部" class="headerlink" title="认识TCP头部"></a>认识<code>TCP头部</code></h2><p><img src="C:\Users\VM110\Desktop\渗透测试学习\OSCP基础渗透测试学习\笔记\tcp_header.png" alt="TCP Header"></p>
+<h2 id="tcpdump的基本使用"><a href="#tcpdump的基本使用" class="headerlink" title="tcpdump的基本使用"></a><code>tcpdump</code>的基本使用</h2><h3 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">% sudo tcpdump</span><br><span class="line"></span><br><span class="line">tcpdump: verbose output suppressed, use -v[v]... <span class="keyword">for</span> full protocol decode</span><br><span class="line">listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes</span><br><span class="line">21:19:16.956496 IP 172.30.224.1.mdns &gt; mdns.mcast.net.mdns: 0 A (QM)? cf60825f-49a2-46d0-8ec5-e32907459979.local. (60)</span><br><span class="line">21:19:16.956611 IP6 VM110.mdns &gt; ff02::fb.mdns: 0 A (QM)? cf60825f-49a2-46d0-8ec5-e32907459979.local. (60)</span><br><span class="line">21:19:17.051187 IP 172.30.227.118.41506 &gt; 172.30.224.1.domain: 29901+ PTR? 251.0.0.224.in-addr.arpa. (42)</span><br><span class="line">21:19:17.052100 IP 172.30.224.1.domain &gt; 172.30.227.118.41506: 29901- 1/0/0 PTR mdns.mcast.net. (94)</span><br><span class="line">21:19:17.052446 IP 172.30.227.118.46960 &gt; 172.30.224.1.domain: 20754+ PTR? 1.224.30.172.in-addr.arpa. (43)</span><br><span class="line">21:19:17.055238 IP 172.30.224.1.domain &gt; 172.30.227.118.46960: 20754- 1/0/0 PTR 172.30.224.1. (94)</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>21:19:17.051187 IP 172.30.227.118.41506 &gt; 172.30.224.1.domain: 29901+ PTR?251.0.0.224.in-addr.arpa. (42)</code></p>
+<p>时间（时：分：秒：毫秒） 网络协议 源（src）IP.端口 &gt;(表示数据流方向) 目的(dst)IP.端口: 数据包内容（包括 flags、seq、ack、win、数据长度等）</p>
+</blockquote>
+<h3 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h3><table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th>解析</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-i</td>
+<td>指定监听的网络接口( 默认为第一个接口, <code>any</code>表示所有网卡 )</td>
+<td align="left"><code>sudo tcpdump -i any</code></td>
+</tr>
+<tr>
+<td align="left">-w</td>
+<td>将捕获到的信息保存到文件中，且不分析和打印在屏幕上</td>
+<td align="left"><code>sudo tcpdump -w &lt;filename&gt;.pcap</code></td>
+</tr>
+<tr>
+<td align="left">-r</td>
+<td>从文件读取数据。读取后我们，照样可以通过语法过滤</td>
+<td align="left"><code>sudo tcpdump -r &lt;filename&gt;.pcap</code></td>
+</tr>
+<tr>
+<td align="left">-n</td>
+<td>同时<code>禁用DNS主机名解析</code>和<code>端口号解析</code></td>
+<td align="left"><code>sudo tcpdump -n </code></td>
+</tr>
+<tr>
+<td align="left">-nn</td>
+<td>同时<code>禁用DNS主机名解析</code>和<code>端口号解析</code></td>
+<td align="left"><code>sudo tcpdump -nn</code></td>
+</tr>
+<tr>
+<td align="left">-N</td>
+<td>禁用<code>DNS主机名解析</code>, 提高速度</td>
+<td align="left"><code>sudo tcpdump -N</code></td>
+</tr>
+<tr>
+<td align="left">-t</td>
+<td>每行输出中不输出时间</td>
+<td align="left"><code>sudo tcpdumo -t</code></td>
+</tr>
+<tr>
+<td align="left">-tt</td>
+<td>每行输出中会输出<code>Unix时间戳</code></td>
+<td align="left"><code>sudo tcpdump -tt</code></td>
+</tr>
+<tr>
+<td align="left">-ttt</td>
+<td>输出每行打印的时间间隔</td>
+<td align="left"><code>sudo tcpdump -ttt</code></td>
+</tr>
+<tr>
+<td align="left">-tttt</td>
+<td>在每行打印的时间戳之前添加日期的打印</td>
+<td align="left"><code>sudo tcpdump -tttt</code></td>
+</tr>
+<tr>
+<td align="left">-v</td>
+<td>对产生数据包详细的输出</td>
+<td align="left"><code>sudo tcpdump -v</code></td>
+</tr>
+<tr>
+<td align="left">-vv</td>
+<td>比<code>-v</code>更加详细的输出</td>
+<td align="left"><code>sudo tcpdump -vv</code></td>
+</tr>
+<tr>
+<td align="left">-vvv</td>
+<td>比<code>-vv</code>更加详细的输出</td>
+<td align="left"><code>sudo tcpdump -vvv</code></td>
+</tr>
+<tr>
+<td align="left">-c</td>
+<td>指定捕获数据包的数量</td>
+<td align="left"><code>sudo tcpdump -c 20</code></td>
+</tr>
+<tr>
+<td align="left">-C</td>
+<td>和<code>-w</code>连用，指定单个保存的文件的大小(默认单位为<code>MB</code>)，如果超过了从新写入一个新的文件(在指定的文件名后添加序号)</td>
+<td align="left"><code>sudo tcpdump -w &lt;filename&gt;.pcap -C 1</code></td>
+</tr>
+<tr>
+<td align="left">-W</td>
+<td>限制捕获的数据包的文件的个数，和<code>-C</code>连用</td>
+<td align="left"><code>sudo tcpdump -w &lt;filename&gt;.pcap -C 1 -W 3</code></td>
+</tr>
+<tr>
+<td align="left">-Q</td>
+<td>选择是入方向还是出方向的数据包: <code>in</code> 、 <code>out</code> 、 <code>inout</code></td>
+<td align="left"><code>sudo tcpdump -Q in</code></td>
+</tr>
+<tr>
+<td align="left">-q</td>
+<td>简洁的打印输出， 减少数据包信息的输出</td>
+<td align="left"><code>sudo tcpdump -q</code></td>
+</tr>
+<tr>
+<td align="left">-D</td>
+<td>显示所有的可用的网络接口列表</td>
+<td align="left"><code>sudo tcpdump -D</code></td>
+</tr>
+<tr>
+<td align="left">-L</td>
+<td>列出网络接口的已知数据链路</td>
+<td align="left"><code>sudo tcpdump -L</code></td>
+</tr>
+<tr>
+<td align="left">-s</td>
+<td>指定每个捕获的包的长度,超过会截断,单位是<code>字节(bytes)</code></td>
+<td align="left"><code>sudo tcpumpd -s 50</code></td>
+</tr>
+<tr>
+<td align="left">-A</td>
+<td>以 ASCII 码的格式打印出包的内容。 <code>-A</code> 和 <code>-X</code> 不能同时使用</td>
+<td align="left"><code>sudo tcpdump -A</code></td>
+</tr>
+<tr>
+<td align="left">-X</td>
+<td>同时以 ASCII 码和十六进制的格式打印出包的内容</td>
+<td align="left"><code>sudo tcpdump -X</code></td>
+</tr>
+<tr>
+<td align="left">-e</td>
+<td>在输出行打印出数据链路层的头部信息</td>
+<td align="left"><code>sudo tcpdump -e</code></td>
+</tr>
+<tr>
+<td align="left">-F</td>
+<td>指定使用哪个文件的过滤规则过滤包,此时命令行上的过滤规则将会被忽略</td>
+<td align="left"><code>sudo tcpdump -F &lt;filename&gt;</code></td>
+</tr>
+<tr>
+<td align="left">-l</td>
+<td>对标准输出进行缓冲，可以使用其他命令保存数据包</td>
+<td align="left"><code>sudo tcpdump -l &gt; &lt;filename&gt; &amp;&amp; tail -f &lt;filename&gt; </code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>保存的文件为<code>cap</code>或者 <code>pcap</code>可以直接通过<code>wireshark</code>打开</p>
+</blockquote>
+<h3 id="常用滤规则"><a href="#常用滤规则" class="headerlink" title="常用滤规则"></a>常用滤规则</h3><p>在<code>tcpdump</code>中支持逻辑运算符(<code>and</code> 、 <code>or</code> 、 <code>not</code> 或者 <code>&amp;&amp;</code> 、 <code>||</code> 、 <code>!</code>)来过滤数据包</p>
+<h4 id="基于IP地址的过滤"><a href="#基于IP地址的过滤" class="headerlink" title="基于IP地址的过滤"></a>基于<code>IP地址</code>的过滤</h4><h5 id="host过滤"><a href="#host过滤" class="headerlink" title="host过滤"></a><code>host</code>过滤</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只显示包含 192.168.0.1 主机的数据包</span></span><br><span class="line">sudo tcpdump host 192.168.0.1</span><br></pre></td></tr></table></figure>
+
+<h5 id="源IP地址-src-过滤"><a href="#源IP地址-src-过滤" class="headerlink" title="源IP地址(src)过滤"></a><code>源IP地址(src)</code>过滤</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只显示源IP地址为 192.168.0.1 的数据包</span></span><br><span class="line">sudo tcpdump src 192.168.0.1</span><br></pre></td></tr></table></figure>
+
+<h5 id="目的IP地址（dst）过滤"><a href="#目的IP地址（dst）过滤" class="headerlink" title="目的IP地址（dst）过滤"></a><code>目的IP地址（dst）</code>过滤</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只显示目的IP地址为 192.168.0.1 的数据包</span></span><br><span class="line">sudo tcpdump dst 192.168.0.1</span><br></pre></td></tr></table></figure>
+
+<h5 id="IP网段的过滤"><a href="#IP网段的过滤" class="headerlink" title="IP网段的过滤"></a><code>IP网段</code>的过滤</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只显示该IP网段(192.168.0.0/24)中包含的IP地址的数据包</span></span><br><span class="line">sudo tcpdump net 192.168.0.1/24</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个也可以指定数据流方向，即指定源IP或者目的IP为该网段的数据包</span></span><br><span class="line">sudo tcpdump dst net 192.168.0.1/24</span><br></pre></td></tr></table></figure>
+
+<h4 id="基于端口的过滤"><a href="#基于端口的过滤" class="headerlink" title="基于端口的过滤"></a>基于<code>端口</code>的过滤</h4><h5 id="tcp端口过滤"><a href="#tcp端口过滤" class="headerlink" title="tcp端口过滤"></a><code>tcp端口</code>过滤</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只显示tcp端口为80的数据包</span></span><br><span class="line">sudo tcpdump tcp port 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只显示源端口为80的数据包</span></span><br><span class="line">sudo tcpdump src tcp port 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只显示目的端口为80的数据包</span></span><br><span class="line">sudo tcpdump dst tcp port 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定显示多个端口的数据包</span></span><br><span class="line">sudo tcpdump tcp port 80 or 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定显示一个范围端口的数据包</span></span><br><span class="line">sudo tcpdump tcp portrange 80-8080</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于常见的应用层协议的默认端口可以直接用协议名指定</span></span><br><span class="line">sudo tcpdump tcp port http or https or ssh</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>tcp端口</code>过滤同样可以指定<code>源端口</code>或者<code>目的端口</code></p>
+</blockquote>
+<h5 id="udp端口过滤"><a href="#udp端口过滤" class="headerlink" title="udp端口过滤"></a><code>udp端口</code>过滤</h5><p><code>udp端口</code>的过滤方式同<code>tcp</code></p>
+<h4 id="基于网络协议的过滤"><a href="#基于网络协议的过滤" class="headerlink" title="基于网络协议的过滤"></a>基于<code>网络协议</code>的过滤</h4><blockquote>
+<p>对于<code>底层网络传输协议</code>可以通过<code>指定协议名</code>来过滤数据包</p>
+<p>支持的协议 <code>ip</code> 、<code> ip6</code> 、 <code>arp</code> 、 <code>icmp</code> 、 <code>tcp</code> 、 <code>udp</code> 等</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定显示ICMP协议的数据包</span></span><br><span class="line">sudo tcpdump icmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定显示多个协议的数据包</span></span><br><span class="line">sudo tcpdump icmp or ip or tcp or udp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定显示包含tcp协议和udp协议中的http、domain协议端口的数据包</span></span><br><span class="line">sudo tcpdump tcp port http or https or udp port domain</span><br></pre></td></tr></table></figure>
+
+<h4 id="基于包大小过滤"><a href="#基于包大小过滤" class="headerlink" title="基于包大小过滤"></a>基于<code>包大小</code>过滤</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 捕获小于32bytes的数据包</span></span><br><span class="line">sudo tcpdump less 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 捕获大于32bytes的数据包</span></span><br><span class="line">sudo tcpdump greater 22</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="C:\Users\VM110\Desktop\渗透测试学习\OSCP基础渗透测试学习\笔记\tcpdump.png" alt="tcpdump"></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:35:23
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                        #OSCP学习
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Kali-Tools/" title="Kali Tools">
+                        #Kali Tools
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/10/20/Tmux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">tcpdump 的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86TCP%E5%A4%B4%E9%83%A8"><span class="toc-text">认识TCP头部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpdump%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">tcpdump的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">基本格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-text">常用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%BB%A4%E8%A7%84%E5%88%99"><span class="toc-text">常用滤规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EIP%E5%9C%B0%E5%9D%80%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-text">基于IP地址的过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#host%E8%BF%87%E6%BB%A4"><span class="toc-text">host过滤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90IP%E5%9C%B0%E5%9D%80-src-%E8%BF%87%E6%BB%A4"><span class="toc-text">源IP地址(src)过滤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84IP%E5%9C%B0%E5%9D%80%EF%BC%88dst%EF%BC%89%E8%BF%87%E6%BB%A4"><span class="toc-text">目的IP地址（dst）过滤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IP%E7%BD%91%E6%AE%B5%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-text">IP网段的过滤</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-text">基于端口的过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#tcp%E7%AB%AF%E5%8F%A3%E8%BF%87%E6%BB%A4"><span class="toc-text">tcp端口过滤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#udp%E7%AB%AF%E5%8F%A3%E8%BF%87%E6%BB%A4"><span class="toc-text">udp端口过滤</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-text">基于网络协议的过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8C%85%E5%A4%A7%E5%B0%8F%E8%BF%87%E6%BB%A4"><span class="toc-text">基于包大小过滤</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://nowuo.github.io/">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Copyright © 2023 VM110</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Tcpdump%E7%9A%84%E4%BD%BF%E7%94%A8 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2Ftcpdump%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/tcpdump/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

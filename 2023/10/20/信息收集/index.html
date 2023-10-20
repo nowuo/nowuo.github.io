@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh_CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="author" content="VM110" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      信息收集 
+      
+      
+      |
+    
+     VM110
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/logo.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">VM110</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">信息收集</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:31:49
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                    #OSCP学习
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" title="渗透测试">
+                    #渗透测试
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="被动信息搜集"><a href="#被动信息搜集" class="headerlink" title="被动信息搜集"></a>被动信息搜集</h1><hr>
+<p>对于“被动”有两种不同的解释。在最严格的解释中，我们从不直接与目标进行通信。例如，我们可以依赖第三方获取信息，但我们不会访问目标的任何系统或服务器。采用这种方法可以保持我们行动和意图的高度机密性，但也可能很繁琐，并且可能限制我们的结果。在较宽松的解释中，我们可能会与目标进行交互，但只是作为一个普通的互联网用户。例如，如果目标的网站允许我们注册帐户，我们可以这样做。但是，在此阶段我们不会对网站进行漏洞测试。</p>
+<h2 id="记录笔记"><a href="#记录笔记" class="headerlink" title="记录笔记"></a>记录笔记</h2><p>一个信息收集活动可能会生成大量的数据，因此重要的是我们能够有效地管理这些数据，以便在后续搜索中利用它或在后续阶段中使用它。记录笔记没有对错之分。然而，如果我们保持详细和格式良好的笔记，可能会更容易在以后检索信息。</p>
+<h2 id="网站侦察"><a href="#网站侦察" class="headerlink" title="网站侦察"></a>网站侦察</h2><p>如果客户拥有一个网站，我们可以通过简单地浏览网站来收集基本信息。小型组织可能只有一个网站，而大型组织可能有很多网站，其中一些可能没有得到维护。</p>
+<h2 id="Whois-枚举"><a href="#Whois-枚举" class="headerlink" title="Whois 枚举"></a>Whois 枚举</h2><p>Whois 是一种 TCP 服务、工具和数据库，可以提供有关域名的信息，例如名称服务器和注册商。这些信息通常是公开的，因为注册商对私人注册收费。我们可以通过执行标准的正向搜索，通过<code>whois</code>客户端，来收集有关域名的基本信息。</p>
+<h3 id="正向搜索"><a href="#正向搜索" class="headerlink" title="正向搜索"></a>正向搜索</h3><p>利用域名收集关于域名的基本信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whois &lt;root_domain&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="反向搜索"><a href="#反向搜索" class="headerlink" title="反向搜索"></a>反向搜索</h3><p>whois 客户端还可以执行反向查找。假设我们有一个 IP 地址，我们可以进行反向查找以获取更多关于该 IP 地址的信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whois &lt;ip&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="谷歌黑客"><a href="#谷歌黑客" class="headerlink" title="谷歌黑客"></a>谷歌黑客</h2><p>Google Hacking”这个术语在 2001 年由约翰尼·朗（Johnny Long）广为流传。通过几次演讲和一本非常受欢迎的书（《Google Hacking for Penetration Testers》），他详细介绍了如何利用谷歌等搜索引擎来发现关键信息、漏洞和配置错误的网站。这种技术的核心是巧妙的搜索字符串和运算符，它们允许对搜索查询进行创造性的精炼，其中大多数都适用于各种搜索引擎。这个过程是迭代的，从广泛的搜索开始，然后通过运算符缩小范围，筛选出不相关或不感兴趣的结果。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>site:</td>
+<td>限制搜索结果为特定网站。例如：<code>site:example.com</code> 将只返回属于 example.com 域的结果。</td>
+</tr>
+<tr>
+<td>intitle:</td>
+<td>限制搜索结果为包含指定关键词在标题中的页面。例如：<code>intitle:&quot;login page&quot;</code> 将返回包含“login page”关键词的页面。</td>
+</tr>
+<tr>
+<td>inurl:</td>
+<td>限制搜索结果为包含指定关键词在 URL 中的页面。例如：<code>inurl:admin</code> 将返回包含“admin”关键词的 URL。</td>
+</tr>
+<tr>
+<td>filetype:</td>
+<td>限制搜索结果为特定文件类型。例如：<code>filetype:pdf</code> 将返回 PDF 文件。</td>
+</tr>
+<tr>
+<td>link:</td>
+<td>限制搜索结果为链接到指定网站的页面。例如：<code>link:example.com</code> 将返回链接到 example.com 的页面。</td>
+</tr>
+<tr>
+<td>cache:</td>
+<td>显示指定网页的缓存版本。例如：<code>cache:example.com</code> 将显示 example.com 的缓存页面。</td>
+</tr>
+<tr>
+<td>related:</td>
+<td>显示与指定网页类似的其他网页。例如：<code>related:example.com</code> 将显示与 example.com 类似的其他网页。</td>
+</tr>
+<tr>
+<td>info:</td>
+<td>显示关于指定网站的信息，包括链接、相似网站和缓存版本等。例如：<code>info:example.com</code> 将显示有关 example.com 的信息。</td>
+</tr>
+<tr>
+<td>intext:</td>
+<td>限制搜索结果为包含指定关键词在页面正文中的页面。例如：<code>intext:&quot;password&quot;</code> 将返回包含“password”关键词的页面。</td>
+</tr>
+<tr>
+<td>ext:</td>
+<td>限制搜索结果为指定文件扩展名的文件。例如：<code>ext:php</code> 将返回 PHP 文件。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这些基本示例只是浅尝辄止，我们可以通过搜索运算符做更多的事情。<a target="_blank" rel="noopener" href="https://www.exploit-db.com/google-hacking-database">Google 黑客数据库（GHDB）</a>包含大量创造性搜索的示例，展示了通过组合运算符进行创造性搜索的强大功能。</p>
+</blockquote>
+<h2 id="通过第三方网站获取信息"><a href="#通过第三方网站获取信息" class="headerlink" title="通过第三方网站获取信息"></a>通过第三方网站获取信息</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://fofa.info/">FOFA</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://searchdns.netcraft.com/">Netcraft</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://tool.chinaz.com/">站长工具</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.shodan.io/">Shodan</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://securityheaders.com/">Security Headers Scanner</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.ssllabs.com/ssltest/">SSL Server Test</a></p>
+</blockquote>
+<h2 id="recon-ng-Web-信息搜集框架"><a href="#recon-ng-Web-信息搜集框架" class="headerlink" title="recon-ng Web 信息搜集框架"></a><code>recon-ng</code> Web 信息搜集框架</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">recon-ng # 启动软件</span><br><span class="line"></span><br><span class="line">marketplace search &lt;module_name&gt; # 搜索模块</span><br><span class="line"></span><br><span class="line">marketplace install &lt;module_name&gt; # 安装模块</span><br><span class="line"></span><br><span class="line">modules load &lt;module_name&gt; # 载入模块</span><br><span class="line"></span><br><span class="line">options set &lt;dec&gt; &lt;vaule&gt; # 设置模块需要参数</span><br><span class="line"></span><br><span class="line">run # 启动模块</span><br></pre></td></tr></table></figure>
+
+<h2 id="Open-Source-Code-开源代码"><a href="#Open-Source-Code-开源代码" class="headerlink" title="Open-Source Code(开源代码)"></a>Open-Source Code(开源代码)</h2><p>通过 Github 来获取别人网站的开源版本。</p>
+<h2 id="用户信息收集"><a href="#用户信息收集" class="headerlink" title="用户信息收集"></a>用户信息收集</h2><p>除了收集有关目标组织资源的信息之外，我们还可以收集有关该组织员工的信息。我们收集这些信息的目的是编制用户或密码列表，构建社交工程的借口，增强钓鱼攻击或客户端攻击，执行凭证填充等等。然而，每个渗透测试的参与规则各不相同。有些渗透测试可能仅限于纯粹的技术测试，没有任何社交工程方面的内容。其他测试可能有少量或没有限制。</p>
+<h3 id="邮箱收集"><a href="#邮箱收集" class="headerlink" title="邮箱收集"></a>邮箱收集</h3><p>使用<code>theHarvester</code>命令从多个公共数据源收集电子邮箱。</p>
+<blockquote>
+<p><code>theHarvester -d megacorpone.com -b google</code>, 使用-d 参数指定目标域名，使用-b 参数设置要搜索的数据源</p>
+</blockquote>
+<h2 id="信息收集框架"><a href="#信息收集框架" class="headerlink" title="信息收集框架"></a>信息收集框架</h2><h3 id="OSINT-框架"><a href="#OSINT-框架" class="headerlink" title="OSINT 框架"></a><code>OSINT</code> 框架</h3><p><a target="_blank" rel="noopener" href="https://osintframework.com/">OSINT</a> 框架在一个中心包括信息收集工具和网站地点。 框架中列出的一些工具涵盖的学科比信息安全更多。</p>
+<h1 id="主动信息收集"><a href="#主动信息收集" class="headerlink" title="主动信息收集"></a>主动信息收集</h1><p>在本模块中，我们将超越被动信息收集，探索涉及与目标服务直接交互的技术。我们将研究一些基础技术，但请记住，现场中可以针对无数个服务进行攻击。例如，这包括 Active Directory，我们将在另一个模块中详细介绍。但是，在本模块中，我们将研究一些更常见的主动信息收集技术，包括端口扫描以及 DNS、SMB、NFS、SMTP 和 SNMP 枚举。</p>
+<h2 id="DNS-枚举"><a href="#DNS-枚举" class="headerlink" title="DNS 枚举"></a>DNS 枚举</h2><h3 id="使用-host-命令查询域名-DNS-信息"><a href="#使用-host-命令查询域名-DNS-信息" class="headerlink" title="使用 host 命令查询域名 DNS 信息"></a>使用 <code>host</code> 命令查询域名 DNS 信息</h3><blockquote>
+<p>一些常见的 DNS 记录类型</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>记录类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NS</td>
+<td>名称服务器记录包含托管域名的 DNS 记录的权威服务器的名称。</td>
+</tr>
+<tr>
+<td>A</td>
+<td>也称为主机记录，“A 记录”包含主机名（如<a target="_blank" rel="noopener" href="http://www.megacorpone.com)的ip地址./">www.megacorpone.com）的IP地址。</a></td>
+</tr>
+<tr>
+<td>MX</td>
+<td>邮件交换记录包含负责处理域名电子邮件的服务器的名称。一个域可以包含多个 MX 记录。</td>
+</tr>
+<tr>
+<td>PTR</td>
+<td>指针记录用于反向查找区域，并用于查找与 IP 地址相关联的记录。</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>规范名称记录用于为其他主机记录创建别名。</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>文本记录可以包含任意数据，并可用于各种目的，例如域名所有权验证。</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host命令查询域名IP地址</span></span><br><span class="line">host &lt;domain&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-t 指定查询DNS记录类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">默认查询A记录</span></span><br><span class="line">host -t A &lt;root_domain&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查用的IP详细信息查询方式（网页查询）</span></span><br><span class="line">curl cip.cc # 查询自己IP信息</span><br><span class="line">curl cip.cc/192.168.1.1 # 查询192.168.1.1 IP信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动化查找"><a href="#自动化查找" class="headerlink" title="自动化查找"></a>自动化查找</h3><p>利用<code>host</code>命令我们可以继续使用其他 DNS 查询来发现属于同一域的更多主机名和 IP 地址。</p>
+<h3 id="正向查找暴力破解"><a href="#正向查找暴力破解" class="headerlink" title="正向查找暴力破解"></a>正向查找暴力破解</h3><p>利用<code>Bash</code>脚本结合爆破字典查询。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用list.txt</span></span><br><span class="line"><span class="keyword">for</span> host <span class="keyword">in</span> $(<span class="built_in">cat</span> list.txt)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  host -t A <span class="variable">$host</span>.nowuo.cn</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="反向查找暴力破解"><a href="#反向查找暴力破解" class="headerlink" title="反向查找暴力破解"></a>反向查找暴力破解</h3><p>DNS 正向破解中在相同的网段发现了一组分散的 IP 地址。如果域名管理员为该域设置了 PTR 记录，我们可以使用反向查找扫描该近似范围，以请求每个 IP 的主机名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设发现发的网段为: 192.168.0.0/24</span></span><br><span class="line"><span class="keyword">for</span> ip <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 254)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  host 192.168.0.<span class="variable">$ip</span></span><br><span class="line"><span class="keyword">done</span> | grep -v <span class="string">&quot;not found&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="DNS-区域传输"><a href="#DNS-区域传输" class="headerlink" title="DNS 区域传输"></a>DNS 区域传输</h3><p>DNS 区域传输基本上是相关 DNS 服务器之间的数据库复制，其中区域文件从主 DNS 服务器复制到从服务器。区域文件包含为该区域配置的所有 DNS 名称的列表。区域传输应该只允许授权的从 DNS 服务器，但许多管理员错误地配置他们的 DNS 服务器，在这些情况下，任何请求 DNS 服务器区域副本的人通常都会收到一个。这相当于在银盘上向黑客透露公司网络布局。所有服务器的名称、地址和功能都可能暴露给窥探的眼睛。</p>
+<p>执行区域传输的 <code>host</code> 命令语法如下：</p>
+<p><code>host -l &lt;domain name&gt; &lt;dns server address&gt;</code></p>
+<p>通过 DNS 区域传输获取其他主机 IP 地址脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="variable">$1</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;[*] 简单的区域传输脚本&quot;</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;[*] 用法：<span class="variable">$0</span> &lt;域名&gt;&quot;</span></span><br><span class="line">   <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> domain <span class="keyword">in</span> $(host -t NS <span class="variable">$1</span> | <span class="built_in">cut</span> -f 4 -d <span class="string">&quot; &quot;</span>)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">   host -l <span class="variable">$1</span> <span class="variable">$domain</span> | grep <span class="string">&quot;has address&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="kali-linux-中的相关工具"><a href="#kali-linux-中的相关工具" class="headerlink" title="kali linux 中的相关工具"></a>kali linux 中的相关工具</h3><h4 id="dnsrecon-工具"><a href="#dnsrecon-工具" class="headerlink" title="dnsrecon 工具"></a><code>dnsrecon</code> 工具</h4><p>DNSRecon 是一个先进的、现代的 Python 编写的 DNS 枚举脚本。</p>
+<p>利用<code>dnsrecon</code>查询区域传输，<code>-d</code>选项指定域名,<code>-t</code>指定要执行的枚举类型</p>
+<p><code>dnsrecon -d &lt;domain&gt; -t axfr</code></p>
+<p>利用<code>dnsrecon</code>进行域名暴力破解</p>
+<p><code>dnsrecon -d &lt;domain&gt; -D &lt;hosts_list_path&gt; -t brt</code></p>
+<h4 id="dnsenum-工具"><a href="#dnsenum-工具" class="headerlink" title="dnsenum 工具"></a><code>dnsenum</code> 工具</h4><p>DNSEnum 是另一个流行的 DNS 枚举工具。自动化查询所有<code>dns</code>字段。</p>
+<p><code>dnsenum &lt;domain&gt;</code> # 自动化查询</p>
+<h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>端口扫描是检查远程计算机上的<code>TCP</code>或<code>UDP</code>端口的过程，旨在检测目标上运行的服务以及可能存在的潜在攻击向量。了解端口扫描的影响以及特定端口扫描可能产生的影响是非常重要的。由于某些扫描可能会产生大量的流量，以及它们的侵入性，盲目运行端口扫描可能会对目标系统或客户网络产生不利影响，例如过载服务器和网络链接，或触发入侵检测系统(IDS)。</p>
+<p>使用适当的端口扫描方法可以显著提高我们作为渗透测试人员的效率，同时还可以限制许多风险。根据参与的范围，我们可以先只扫描<code>80</code>和<code>443</code>端口，而不是对目标网络运行完整的端口扫描。使用可能的 Web 服务器列表，我们可以在后台对这些服务器运行完整的端口扫描，同时进行其他枚举。完成完整的端口扫描后，我们可以进一步缩小扫描范围，逐渐探测更多信息。端口扫描应被视为一种独特于每个参与的动态过程。一个扫描的结果决定了下一个扫描的类型和范围。</p>
+<h3 id="TCP-扫描"><a href="#TCP-扫描" class="headerlink" title="TCP 扫描"></a><code>TCP</code> 扫描</h3><p>最简单的<code>TCP</code>端口扫描技术通常称为 CONNECT 扫描，它依赖于三向<code>TCP</code>握手机制。该机制旨在使两个试图通信的主机在传输任何数据之前协商网络<code>TCP</code>套接字连接的参数。简单地说，主机向目标端口上的服务器发送一个<code>TCPSYN</code>数据包。如果目标端口是打开的，服务器将用<code>SYN-ACK</code>数据包进行响应，客户端主机发送<code>ACK</code>数据包以完成握手。如果握手成功完成，则认为端口是打开的。</p>
+<p>利用<code>netcat</code>实现对目的 IP <code>7880-7895</code> TCP 端口进行扫描扫描</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-w 设置超时时间</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-l 设置零I/O模式，它将不发送任何数据</span></span><br><span class="line">nc -nv -w 1 -z &lt;dec_ip&gt; &lt;port_area&gt;</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:31:49
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                        #OSCP学习
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" title="渗透测试">
+                        #渗透测试
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/10/20/tcpdump/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-text">被动信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E7%AC%94%E8%AE%B0"><span class="toc-text">记录笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E4%BE%A6%E5%AF%9F"><span class="toc-text">网站侦察</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Whois-%E6%9E%9A%E4%B8%BE"><span class="toc-text">Whois 枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E6%90%9C%E7%B4%A2"><span class="toc-text">正向搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E6%90%9C%E7%B4%A2"><span class="toc-text">反向搜索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%B7%E6%AD%8C%E9%BB%91%E5%AE%A2"><span class="toc-text">谷歌黑客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%BD%91%E7%AB%99%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF"><span class="toc-text">通过第三方网站获取信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recon-ng-Web-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%E6%A1%86%E6%9E%B6"><span class="toc-text">recon-ng Web 信息搜集框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Open-Source-Code-%E5%BC%80%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-text">Open-Source Code(开源代码)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">用户信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%AE%E7%AE%B1%E6%94%B6%E9%9B%86"><span class="toc-text">邮箱收集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%A1%86%E6%9E%B6"><span class="toc-text">信息收集框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OSINT-%E6%A1%86%E6%9E%B6"><span class="toc-text">OSINT 框架</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">主动信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS-%E6%9E%9A%E4%B8%BE"><span class="toc-text">DNS 枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-host-%E5%91%BD%E4%BB%A4%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%90%8D-DNS-%E4%BF%A1%E6%81%AF"><span class="toc-text">使用 host 命令查询域名 DNS 信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9F%A5%E6%89%BE"><span class="toc-text">自动化查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E6%9F%A5%E6%89%BE%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-text">正向查找暴力破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E6%9F%A5%E6%89%BE%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-text">反向查找暴力破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS-%E5%8C%BA%E5%9F%9F%E4%BC%A0%E8%BE%93"><span class="toc-text">DNS 区域传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kali-linux-%E4%B8%AD%E7%9A%84%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7"><span class="toc-text">kali linux 中的相关工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dnsrecon-%E5%B7%A5%E5%85%B7"><span class="toc-text">dnsrecon 工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dnsenum-%E5%B7%A5%E5%85%B7"><span class="toc-text">dnsenum 工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-text">端口扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-%E6%89%AB%E6%8F%8F"><span class="toc-text">TCP 扫描</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://nowuo.github.io/">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Copyright © 2023 VM110</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2F%25E4%25BF%25A1%25E6%2581%25AF%25E6%2594%25B6%25E9%259B%2586%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

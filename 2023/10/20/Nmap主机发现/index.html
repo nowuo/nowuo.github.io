@@ -11,7 +11,7 @@
   
   <title>
     
-      Archives 
+      Nmap主机发现 
       
       
       |
@@ -102,176 +102,165 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2023</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Nmap主机发现</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:33:58
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                    #OSCP学习
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Kali-Tools/" title="Kali Tools">
+                    #Kali Tools
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Nmap/" title="Nmap">
+                    #Nmap
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="Nmap-主机发现"><a href="#Nmap-主机发现" class="headerlink" title="Nmap 主机发现"></a>Nmap 主机发现</h1><h2 id="主机发现常见方法"><a href="#主机发现常见方法" class="headerlink" title="主机发现常见方法"></a>主机发现常见方法</h2><h3 id="ARP扫描"><a href="#ARP扫描" class="headerlink" title="ARP扫描"></a><code>ARP</code>扫描</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nmap -PR -sn 192.168.68.0/24 <span class="comment"># 使用ARP协议探测主机存活</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ICMP扫描"><a href="#ICMP扫描" class="headerlink" title="ICMP扫描"></a><code>ICMP</code>扫描</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nmap -PE -sn 192.168.68.0/24 <span class="comment"># 使用ICMP回显请求</span></span><br><span class="line">sudo nmap -PM -sn 192.168.68.0/24 <span class="comment"># 使用ICMP地址掩码请求</span></span><br><span class="line">sudo nmap -PP -sn 192.168.68.0/24 <span class="comment"># 使用ICMP时间戳请求</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="TCP-UDP扫描"><a href="#TCP-UDP扫描" class="headerlink" title="TCP/UDP扫描"></a><code>TCP/UDP</code>扫描</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nmap -PA[PORT] -sn 192.168.68.0/24 <span class="comment"># 发送ACK包给TCP端口探测存活，默认80端口 必须要特权账户</span></span><br><span class="line">nmap -PS[PORT] -sn 192.168.68.0/24 <span class="comment"># 发送SYN给TCP端口探测存活，默认80端口</span></span><br><span class="line">sudo nmap -PU[PORT] -sn 192.168.68.0/24 <span class="comment"># 发送给UDP端口探测存活，默认80端口</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="DNS反向查找"><a href="#DNS反向查找" class="headerlink" title="DNS反向查找"></a><code>DNS</code>反向查找</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nmap默认对在线主机进行DNS反向查找， 可以使用-n禁用</span></span><br><span class="line"><span class="comment"># 对于离线主机，可以使用-R 来进行DNS查找</span></span><br><span class="line"><span class="comment"># --dns-servers DNS_SERVER 指定域名服务器</span></span><br><span class="line">nmap -PE -s 192.168.68.0/24 -R --dns-servers 8.8.8.8</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/Nmap%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:33:58
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                        #OSCP学习
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Kali-Tools/" title="Kali Tools">
+                        #Kali Tools
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Nmap/" title="Nmap">
+                        #Nmap
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/10/20/Kali-Linux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="Bash脚本学习">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/">
-            <span>Bash脚本学习</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="DNS被动信息收集">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/DNS%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
-            <span>DNS被动信息收集</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Kali-Linux基本使用">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Kali-Linux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
-            <span>Kali-Linux基本使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Nmap主机发现">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Nmap%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0/">
-            <span>Nmap主机发现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Nmap端口扫描">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Nmap%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">
-            <span>Nmap端口扫描</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SQL 注入">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/SQL%E6%B3%A8%E5%85%A5/">
-            <span>SQL 注入</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SQL Map">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/SQLMAP/">
-            <span>SQL Map</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Tmux">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Tmux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-            <span>Tmux</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Tcpdump的使用">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/tcpdump/">
-            <span>Tcpdump的使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="信息收集">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
-            <span>信息收集</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="前端安全漏洞">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E/">
-            <span>前端安全漏洞</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Kali-Linux常用网络工具">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Kali-Linux%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/">
-            <span>Kali-Linux常用网络工具</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Curl的使用">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Curl%E7%9A%84%E4%BD%BF%E7%94%A8/">
-            <span>Curl的使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="JavaScript反混淆">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/JavaScript%E5%8F%8D%E6%B7%B7%E6%B7%86/">
-            <span>JavaScript反混淆</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Kali Linux常用命令">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/Kali-Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-            <span>Kali Linux常用命令</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="MYSQL基本用法">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/MYSQL%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
-            <span>MYSQL基本用法</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="逻辑漏洞(越权)">
-        <div class="time-m-d">10-20</div>
-        <div class="title">
-          <a href="/2023/10/20/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E8%B6%8A%E6%9D%83(%E8%B6%8A%E6%9D%83)/">
-            <span>逻辑漏洞(越权)</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Nmap-%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0"><span class="toc-text">Nmap 主机发现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95"><span class="toc-text">主机发现常见方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP%E6%89%AB%E6%8F%8F"><span class="toc-text">ARP扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP%E6%89%AB%E6%8F%8F"><span class="toc-text">ICMP扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-UDP%E6%89%AB%E6%8F%8F"><span class="toc-text">TCP&#x2F;UDP扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E5%8F%8D%E5%90%91%E6%9F%A5%E6%89%BE"><span class="toc-text">DNS反向查找</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -526,6 +515,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Nmap%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2FNmap%25E4%25B8%25BB%25E6%259C%25BA%25E5%258F%2591%25E7%258E%25B0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/Nmap%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>

